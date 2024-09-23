@@ -1,5 +1,28 @@
 from ayon_server.settings import BaseSettingsModel, SettingsField
 
+# 1 start MNM
+def image_format_enum():
+    return[
+        {"value": "exr", "label": "exr"},
+        {"value": "tif", "label": "tif"},
+        {"value": "jpg", "label": "jpg"},
+        {"value": "png", "label": "png"}
+    ]
+
+def multi_exr_enum():
+    return[
+        {"value": "No Multi-Layered EXR File", "label": "No Multi-Layered EXR File"},
+        {"value": "Full Multi-Layered EXR File", "label": "Full Multi-Layered EXR File"},
+    ]
+
+def render_target_enum():
+    return[
+        {"value": "local", "label": "Local machine rendering"},
+        {"value": "local_no_render", "label": "Use existing frames (local)"},
+        {"value": "farm", "label": "Farm Rendering"},
+        {"value": "farm_split", "label": "Farm Rendering - Split export & render job"}
+    ]
+# 1 end MNM
 
 # Creator Plugins
 class CreatorModel(BaseSettingsModel):
@@ -30,6 +53,28 @@ class CreateStaticMeshModel(BaseSettingsModel):
         default_factory=list,
         title="Collision Prefixes"
     )
+
+# 2 start MNM
+class CreateRedshiftROPModel(BaseSettingsModel):
+    enabled: bool = SettingsField(title="Enabled")
+    # split_render: bool = SettingsField(title="Split export and render jobs")
+
+    ext: str = SettingsField(
+        enum_resolver=image_format_enum, title='Image Format Options'
+    )
+    
+    multi_layered_mode: str = SettingsField(
+        enum_resolver=multi_exr_enum, title='Multi-Layered EXR'
+    )
+    
+    render_target: str = SettingsField(
+        enum_resolver=render_target_enum, title='Render target'
+    )
+    default_variants: list[str] = SettingsField(
+        title="Default Products",
+        default_factory=list,
+    )
+# 2 end MNM
 
 
 class CreateUSDRenderModel(CreatorModel):
@@ -79,9 +124,14 @@ class CreatePluginsModel(BaseSettingsModel):
     CreateRedshiftProxy: CreatorModel = SettingsField(
         default_factory=CreatorModel,
         title="Create Redshift Proxy")
-    CreateRedshiftROP: CreatorModel = SettingsField(
+    # 3 start MNM
+    CreateRedshiftROP: CreateRedshiftROPModel = SettingsField(
         default_factory=CreatorModel,
         title="Create Redshift ROP")
+    # CreateRedshiftROP: CreatorModel = SettingsField(
+    #     default_factory=CreatorModel,
+    #     title="Create Redshift ROP")
+    # 4 end MNM
     CreateReview: CreatorModel = SettingsField(
         default_factory=CreatorModel,
         title="Create Review")
@@ -153,10 +203,19 @@ DEFAULT_HOUDINI_CREATE_SETTINGS = {
         "enabled": True,
         "default_variants": ["Main"]
     },
+    # 4 start MNM
     "CreateRedshiftROP": {
         "enabled": True,
-        "default_variants": ["Main"]
+        "default_variants": ["Main"],
+        "ext": "exr",
+        "render_target": "farm",
+        "multi_layered_mode": "Full Multi-Layered EXR File"
     },
+    # "CreateRedshiftROP": {
+    #     "enabled": True,
+    #     "default_variants": ["Main"]
+    # },
+    # 5 end MNM
     "CreateReview": {
         "enabled": True,
         "default_variants": ["Main"]
