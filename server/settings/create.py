@@ -76,7 +76,6 @@ class CreateRedshiftROPModel(BaseSettingsModel):
     )
 # 2 end MNM
 
-
 class CreateUSDRenderModel(CreatorModel):
     default_renderer: str = SettingsField(
         "Karma CPU",
@@ -128,10 +127,7 @@ class CreatePluginsModel(BaseSettingsModel):
     CreateRedshiftROP: CreateRedshiftROPModel = SettingsField(
         default_factory=CreatorModel,
         title="Create Redshift ROP")
-    # CreateRedshiftROP: CreatorModel = SettingsField(
-    #     default_factory=CreatorModel,
-    #     title="Create Redshift ROP")
-    # 4 end MNM
+    # 3 end MNM
     CreateReview: CreatorModel = SettingsField(
         default_factory=CreatorModel,
         title="Create Review")
@@ -210,12 +206,8 @@ DEFAULT_HOUDINI_CREATE_SETTINGS = {
         "ext": "exr",
         "render_target": "farm",
         "multi_layered_mode": "Full Multi-Layered EXR File"
+    # 4 end MNM
     },
-    # "CreateRedshiftROP": {
-    #     "enabled": True,
-    #     "default_variants": ["Main"]
-    # },
-    # 5 end MNM
     "CreateReview": {
         "enabled": True,
         "default_variants": ["Main"]
