@@ -33,9 +33,15 @@ class CreateRedshiftProxy(plugin.HoudiniCreator):
 
         instance_node = hou.node(instance.get("instance_node"))
 
+        # 1 start MNM
+        export_dir = hou.text.expandString("$HIP/pyblish/")
+        rs_filepath = f"{export_dir}{product_name}/{product_name}.$F4.rs"
+
         parms = {
-            "RS_archive_file": '$HIP/pyblish/{}.$F4.rs'.format(product_name),
+            "RS_archive_file": rs_filepath,
         }
+
+        #1 end MNM
 
         if self.selected_nodes:
             parms["RS_archive_sopPath"] = self.selected_nodes[0].path()
