@@ -76,6 +76,7 @@ class CreateRedshiftROPModel(BaseSettingsModel):
     )
 # 2 end MNM
 
+
 class CreateUSDRenderModel(CreatorModel):
     default_renderer: str = SettingsField(
         "Karma CPU",
@@ -122,12 +123,15 @@ class CreatePluginsModel(BaseSettingsModel):
         title="Create PointCache (Bgeo)")
     CreateRedshiftProxy: CreatorModel = SettingsField(
         default_factory=CreatorModel,
-        title="Create Redshift Proxy")
+        title="Create Redshift Proxy") 
     # 3 start MNM
     CreateRedshiftROP: CreateRedshiftROPModel = SettingsField(
         default_factory=CreatorModel,
         title="Create Redshift ROP")
     # 3 end MNM
+    CreateRedshiftROP: CreatorModel = SettingsField(
+        default_factory=CreatorModel,
+        title="Create Redshift ROP")
     CreateReview: CreatorModel = SettingsField(
         default_factory=CreatorModel,
         title="Create Review")
@@ -206,8 +210,8 @@ DEFAULT_HOUDINI_CREATE_SETTINGS = {
         "ext": "exr",
         "render_target": "farm",
         "multi_layered_mode": "Full Multi-Layered EXR File"
-    # 4 end MNM
     },
+    # 4 end MNM
     "CreateReview": {
         "enabled": True,
         "default_variants": ["Main"]

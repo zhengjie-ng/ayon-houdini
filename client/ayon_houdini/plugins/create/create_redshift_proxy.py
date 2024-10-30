@@ -39,6 +39,8 @@ class CreateRedshiftProxy(plugin.HoudiniCreator):
 
         parms = {
             "RS_archive_file": rs_filepath,
+            "RS_archive_removeAtt": False,
+            "RS_archive_removeMat": False,
         }
 
         #1 end MNM
