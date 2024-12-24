@@ -129,9 +129,9 @@ class CreatePluginsModel(BaseSettingsModel):
         default_factory=CreatorModel,
         title="Create Redshift ROP")
     # 3 end MNM
-    CreateRedshiftROP: CreatorModel = SettingsField(
-        default_factory=CreatorModel,
-        title="Create Redshift ROP")
+    # CreateRedshiftROP: CreatorModel = SettingsField(
+    #     default_factory=CreatorModel,
+    #     title="Create Redshift ROP")
     CreateReview: CreatorModel = SettingsField(
         default_factory=CreatorModel,
         title="Create Review")
